@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmacia</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/menu.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <div class="dashboard-header">
+            <button class="btn btn-outline-secondary" onclick="toggleMenu()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+            <h1 class="dashboard-title">Farmacia</h1>
+            <button class="btn p-0" style="border: none; background: none;" id="notificationButton" onclick="toggleNotifications()"
+                data-low-stock-image="{{ url_for('static', filename='images/con_notificacion.png') }}" 
+                data-no-notification-image="{{ url_for('static', filename='images/sin_notificacion.png') }}">
+                <img id="notificationIcon" src="{{ url_for('static', filename='images/sin_notificacion.png') }}" class="notification-icon" alt="Notificaciones">
+            </button>
+        </div>
+        <div class="dashboard-content">
+            <div id="content">
+                <!-- El contenido se cargará aquí dinámicamente -->
+            </div>
+        </div>
+    </div>
+
+    <!------------------------------------------------------->
+
+    <div class="menu-overlay" id="menuOverlay"></div>
+    <div class="menu-content" id="menuContent">
+        <div class="menu-header">Menú de Navegación</div>
+        <button class="menu-button" onclick="window.location.href='/Home'">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+            </svg>
+            Ver productos
+        </button>
+        <button class="menu-button" onclick="window.location.href='/Chatbot'">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+            Chatbot
+        </button>
+        <button class="menu-button" onclick="window.location.href='/logout'">
+                Cerrar sesión
+        </button>
+    </div>
+
+
+    <!-- Ventana de notificaciones -->
+    <div id="notificationOverlay" class="menu-overlay"></div>
+    <div id="notificationMenu" class="notification-menu">
+        <div class="notification-header">Lista de Productos con Bajo Stock</div>
+        <div id="notificationList" class="notification-list">
+            <!-- Aquí se listarán los productos con bajo stock -->
+        </div>
+    </div>
+
+    <!-- Modal para editar producto -->
+    <div id="editProductModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeEditModal()">&times;</span>
+            <h2>Editar Producto</h2>
+            <form id="editProductForm">
+                <input type="hidden" id="productId"> <!-- Campo oculto para el ID del producto -->
+                <div class="mb-3">
+                    <label for="productName" class="form-label">Nombre del Producto</label>
+                    <input type="text" class="form-control" id="productName"  name="nombre" required>
+                </div>
+                <div class="mb-3">
+                    <label for="productPrice" class="form-label">Precio</label>
+                    <input type="number" class="form-control" id="productPrice" name="precio_venta" step="0.01" required>
+                </div>
+                <div class="mb-3">
+                    <label for="productDescription" class="form-label">Descripción</label>
+                    <textarea class="form-control" id="productDescription" rows="3" name="descripcion" required></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="productStock" class="form-label">Stock</label>
+                    <input type="number" class="form-control" id="productStock" name="stock" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                <button type="button" class="btn btn-secondary" onclick="closeEditModal()">Cancelar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para agregar producto -->
+    <div id="addProductModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeAddModal()">&times;</span>
+            <h2>Agregar Producto</h2>
+            <form id="addProductForm" method="POST" action="/agregar_producto" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="newProductName" class="form-label">Nombre del Producto</label>
+                    <input type="text" class="form-control" id="newProductName" name="nombre" required>
+                </div>
+                <div class="mb-3">
+                    <label for="newProductPrice" class="form-label">Precio</label>
+                    <input type="number" class="form-control" id="newProductPrice" name="precio_venta" step="0.01" required>
+                </div>
+                <div class="mb-3">
+                    <label for="newProductDescription" class="form-label">Descripción</label>
+                    <textarea class="form-control" id="newProductDescription" name="descripcion" rows="3" required></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="newProductStock" class="form-label">Stock</label>
+                    <input type="number" class="form-control" id="newProductStock" name="stock" required>
+                </div>
+                <div class="mb-3">
+                    <label for="newProductImage" class="form-label">Imagen del Producto</label>
+                    <input type="file" class="form-control" id="newProductImage" name="imagen" accept="image/*">
+                    <small id="imageError" style="color: red; display: none;">El archivo de imagen no debe exceder el peso de 1 MB.</small>
+                </div>
+                <button type="submit" class="btn btn-primary">Guardar Producto</button>
+                <button type="button" class="btn btn-secondary" onclick="closeAddModal()">Cancelar</button>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- Modal para confirmar eliminación de producto -->
+    <div id="deleteProductModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeDeleteModal()">&times;</span>
+            <h2>Confirmar Eliminación</h2>
+            <p>¿Estás seguro de que deseas eliminar este producto?</p>
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-danger" onclick="deleteProduct()">Eliminar</button>
+                <button class="btn btn-secondary ms-2" onclick="closeDeleteModal()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Validación del tamaño de la imagen antes de enviar el formulario
+        document.getElementById('addProductForm').addEventListener('submit', function(event) {
+            var imageInput = document.getElementById('newProductImage');
+            var file = imageInput.files[0];
+            var errorMessage = document.getElementById('imageError');
+            
+            if (file) {
+                // Tamaño máximo permitido: 1 MB (1 * 1024 * 1024 bytes)
+                var maxSize = 1 * 1024 * 1024;
+                
+                // Verificar si el tamaño del archivo excede 1 MB
+                if (file.size > maxSize) {
+                    event.preventDefault(); // Detener el envío del formulario
+                    errorMessage.style.display = 'block'; // Mostrar el mensaje de error
+                } else {
+                    errorMessage.style.display = 'none'; // Ocultar el mensaje de error
+                }
+            }
+        });
+    </script>
+
+
+    <script src="{{ url_for('static', filename='js/menu.js') }}"></script>
+</body>
+
+
+</html>

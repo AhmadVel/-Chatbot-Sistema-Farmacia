@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+
+</head>
+<body>
+    <div id="chat-container">
+        <div id="cabecera">
+            <h2>BOT EXPERTO EN MEDICAMENTOS</h2>
+        </div>
+        <div id="cabecera2">
+            <p>
+            </p>
+        </div>
+        <div id="messages"></div>
+        <div id="input-container">
+            <input type="text" id="user-input" placeholder="Escribe tus síntomas aquí..." />
+            <button id="send-btn">></button>
+        </div>
+    </div>
+<p></p>
+    <script>
+        document.getElementById('send-btn').addEventListener('click', async function() {
+            const userInput = document.getElementById('user-input').value;
+            const messagesContainer = document.getElementById('messages');
+
+            if (!userInput) return;
+
+            messagesContainer.innerHTML += `
+                <div class="message user">
+                    <div class="bubble"><strong>Usuario:<br></strong> ${userInput}</div>
+                    <div class="circle">
+                        <p>Tú</p>
+                    </div> <!-- Círculo para el usuario -->
+                </div>
+            `;
+            document.getElementById('user-input').value = '';
+
+            const response = await fetch('/ask', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ input: userInput })
+            });
+
+            const data = await response.json();
+            messagesContainer.innerHTML += `
+                <div class="message ai">
+                    <div class="circle">
+                        <p>🩺</p>
+                    </div> <!-- Círculo para el AI-sistente -->
+                    <div class="bubble"><strong>AI-sistente:<br></strong> ${data.response}</div>
+                </div>
+            `;
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        });
+
+        document.getElementById('user-input').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                document.getElementById('send-btn').click();
+            }
+        });
+    </script>
+</body>
+</html>

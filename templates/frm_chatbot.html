@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot de Farmacia</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link href="/static/css/chatbot.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <div class="dashboard-header">
+            <button class="btn btn-outline-secondary" onclick="toggleMenu()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+            <h1 class="dashboard-title">Farmacia</h1>
+        </div>
+        
+        <div id="chat-container">
+            <div id="cabecera">
+                <h2>BOT EXPERTO EN MEDICAMENTOS</h2>
+            </div>
+            <div id="messages"></div>
+            <div id="input-container">
+                <div id="upload-status" class="upload-status" style="display: none;">
+                    <span id="upload-message"></span>
+                    <button id="close-upload-status" class="close-btn">X</button>
+                </div>
+                <label class="file-upload">
+                    <input type="file" id="file-input" accept=".pdf, .png, .jpg, .jpeg" />
+                    <span id="upload-icon">
+                        <img src="{{ url_for('static', filename='images/subir-icon.png') }}" alt="Upload" class="upload-icon" />
+                    </span>
+                </label>
+                <input type="text" id="user-input" placeholder="Escribe tus síntomas aquí..." />
+                <button id="mic-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                        <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                        <line x1="12" y1="19" x2="12" y2="23"></line>
+                        <line x1="8" y1="23" x2="16" y2="23"></line>
+                    </svg>
+                    <span id="mic-text"></span>
+                </button>
+                <button id="send-btn">></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="menu-overlay" id="menuOverlay"></div>
+    <div class="menu-content" id="menuContent">
+        <div class="menu-header">Menú de Navegación</div>
+        <button class="menu-button" onclick="window.location.href='/Home'">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+            </svg>
+            Ver productos
+        </button>
+        <button class="menu-button" onclick="window.location.href='chatbot.html'">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+            Chatbot
+        </button>
+        <button class="menu-button" onclick="window.location.href='/'">
+            Cerrar sesión
+        </button>
+    </div>
+
+    <script>
+        // Botón de micrófono y campo de entrada
+        let micButton = document.getElementById("mic-btn");
+        let userInput = document.getElementById("user-input");
+        let micText = document.getElementById("mic-text");
+    
+        // Crear la instancia de reconocimiento de voz
+        let recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+        recognition.lang = "es-ES"; // Establecer el idioma a español
+        recognition.interimResults = false; // Obtener resultados solo cuando se termine de hablar
+    
+        // Función para comenzar a escuchar cuando se haga clic en el botón de micrófono
+        micButton.onclick = function() {
+            if (recognition.isStarted) {
+                recognition.stop();
+                return;
+            }
+            recognition.start(); // Inicia la grabación
+            micButton.classList.add("listening"); // Añade la clase para cambiar el estilo
+            micText.textContent = "Hablando..."; // Cambia el texto a "Hablando..."
+    
+            recognition.onstart = function() {
+                console.log("El reconocimiento ha comenzado.");
+                recognition.isStarted = true;
+            };
+    
+            recognition.onspeechend = function() {
+                recognition.stop(); // Detiene la grabación al finalizar la intervención del usuario
+            };
+    
+            recognition.onresult = function(event) {
+                // Obtiene la transcripción del audio
+                let transcript = event.results[0][0].transcript;
+                userInput.value = transcript; // Muestra el texto transcrito en el campo de entrada
+                micButton.classList.remove("listening"); // Remueve la clase
+                micText.textContent = ""; // Limpia el texto
+            };
+    
+            recognition.onerror = function(event) {
+                console.error("Error en el reconocimiento de voz: ", event.error);
+                micButton.classList.remove("listening"); // Remueve la clase si hay un error
+                micText.textContent = ""; // Limpia el texto
+            };
+    
+            recognition.onend = function() {
+                micButton.classList.remove("listening"); // Asegura que la clase se remueva al finalizar
+                micText.textContent = ""; // Limpia el texto
+                recognition.isStarted = false;
+            };
+        };
+    
+        // Función para enviar el mensaje (ya sea escrito o transcrito)
+        document.getElementById("send-btn").addEventListener("click", function() {
+            let userMessage = userInput.value.trim();
+            if (userMessage !== "") {
+                // Aquí puedes agregar el código para enviar el mensaje al chatbot
+                console.log("Mensaje enviado: ", userMessage);
+            }
+        });
+    </script>
+    
+    <script>
+        function toggleMenu() {
+            const menuContent = document.getElementById("menuContent");
+            const menuOverlay = document.getElementById("menuOverlay");
+            menuContent.classList.toggle("show");
+            menuOverlay.style.display = menuContent.classList.contains("show") ? "block" : "none";
+        }
+
+        function closeMenu() {
+            const menuContent = document.getElementById("menuContent");
+            const menuOverlay = document.getElementById("menuOverlay");
+            menuContent.classList.remove("show");
+            menuOverlay.style.display = "none";
+        }
+
+        document.getElementById("menuOverlay").addEventListener("click", closeMenu);
+
+        document.getElementById('send-btn').addEventListener('click', async function() {
+
+            const userInput = document.getElementById('user-input').value;
+            const messagesContainer = document.getElementById('messages');
+            const fileInput = document.getElementById("file-input");
+            const file = fileInput.files[0]; // Obtener archivo cargado
+
+        if (!userInput) return;
+
+            if (file) {
+                messagesContainer.innerHTML += `
+                    <div class="message user">
+                        <div class="bubble"><strong>Archivo: "<i>${file.name}</i>"<br>Usuario:</strong> ${userInput}</div>
+                        <div class="circle">Tú</div>
+                    </div>
+                `;
+            } else {
+                messagesContainer.innerHTML += `
+                    <div class="message user">
+                        <div class="bubble"><strong>Usuario:</strong> ${userInput}</div>
+                        <div class="circle">Tú</div>
+                    </div>
+                `;
+            }
+            document.getElementById('user-input').value = '';
+            
+            const formData = new FormData();
+            formData.append("input", userInput);
+            if (file) {
+                formData.append("file", file); // Adjuntar el archivo si existe
+            }
+
+            const response = await fetch("/ask", {
+                method: "POST",
+                body: formData,
+            });
+
+            const data = await response.json();
+
+            // Reemplaza los saltos de línea con <br>
+            let formattedResponse = data.response.replace(/\n/g, "<br>");
+            // Reemplaza los **...** por <strong>...</strong>
+            formattedResponse = formattedResponse.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+
+            messagesContainer.innerHTML += `
+                <div class="message ai">
+                    <div class="circle">🩺</div>
+                    <div class="bubble"><strong>AI-sistente:</strong> ${formattedResponse}</div>
+                </div>
+            `;
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+            // Limpiar el archivo del botón
+            fileInput.value = "";
+            const uploadIcon = document.querySelector(".file-upload span img");
+            uploadIcon.src = "{{ url_for('static', filename='images/subir-icon.png') }}";
+        });
+
+        document.getElementById('file-input').addEventListener('change', function () {
+            
+            const fileInput = this;
+
+            if (fileInput.files && fileInput.files.length > 0) {
+                uploadIcon.innerHTML = `<img src="{{ url_for('static', filename='images/subido-icon.png') }}" alt="Uploaded" class="upload-icon" />`;
+            } else {
+                uploadIcon.innerHTML = `<img src="{{ url_for('static', filename='images/subir-icon.png') }}" alt="Upload" class="upload-icon" />`;
+            }
+        });
+
+        document.getElementById('file-input').addEventListener('change', async function () {
+            const file = this.files[0];
+            const uploadStatus = document.getElementById('upload-status');
+            const uploadMessage = document.getElementById('upload-message');
+            const uploadIcon = document.getElementById('upload-icon');
+            uploadIcon.innerHTML = `<img src="{{ url_for('static', filename='images/subir-icon.png') }}" alt="Upload" class="upload-icon" />`;
+            // Validar si el archivo es PDF
+            if (
+                file.type !== 'application/pdf' && // PDF
+                file.type !== 'image/jpeg' &&      // Imágenes JPG
+                file.type !== 'image/png' &&       // Imágenes PNG
+                file.type !== 'image/jpg'          // Imágenes GIF
+            )  {
+                uploadMessage.textContent = 'Solo se permiten archivos PDF o imágenes (JPEG, PNG, JPG).';
+                uploadStatus.style.display = 'flex';
+                return;
+            }
+
+            // Mostrar ventana emergente con mensaje de subida en progreso
+            uploadIcon.innerHTML = `<img src="{{ url_for('static', filename='animation/loading.gif') }}" alt="Upload" class="upload-icon" />`;
+            uploadMessage.textContent = 'Subiendo archivo...';
+            uploadStatus.style.display = 'flex';
+
+            // Crear el FormData y subir el archivo al servidor
+            const formData = new FormData();
+            formData.append('file', file);
+
+            try {
+                const response = await fetch('/upload_file', {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    uploadMessage.textContent = `Archivo subido exitosamente: ${file.name}`;
+                    uploadIcon.innerHTML = `<img src="{{ url_for('static', filename='images/subido-icon.png') }}" alt="Uploaded" class="upload-icon" />`;
+                } else {
+                    throw new Error('Error al subir el archivo');
+                }
+            } catch (error) {
+                console.error('Error al subir el archivo:', error);
+                uploadMessage.textContent = 'Error al subir el archivo. Intenta nuevamente.';
+            }
+        });
+
+        // Lógica para cerrar la ventana al hacer clic en "X"
+        document.getElementById('close-upload-status').addEventListener('click', function () {
+            const uploadStatus = document.getElementById('upload-status');
+            uploadStatus.style.display = 'none';
+        });
+
+        document.getElementById('user-input').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                document.getElementById('send-btn').click();
+            }
+        });
+    </script>
+</body>
+</html>
