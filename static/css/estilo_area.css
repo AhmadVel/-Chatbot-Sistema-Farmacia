@@ -1,0 +1,321 @@
+/* Establece un estilo básico para el cuerpo de la página */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Establece un estilo para el encabezado */
+/*Estilos cabecera*/
+header{
+    height: 10%;
+    width: 100%;
+    display: block;
+    background-color: #C03543;
+}
+/*contenedor del header*/
+ #cabecera{
+    position: relative;
+    margin-top: auto;
+    display: flex;
+    padding: 0 auto;
+    color: #fff;
+ }
+ #cabecera h3{
+    position: relative;
+    margin-top: auto;
+    margin-bottom: auto;
+    color: #fff;
+ }
+/*imagen dentro del header*/
+#cabecera img{
+    width: 5%;
+    left: 15px;
+}
+
+/*Boton dentro del header*/
+#cabecera button{
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translate(0,-50%);
+    background-color: #C03543;
+    border-radius: 30px;
+    color: #fff;
+    font-size: 1.2em;
+    padding: 0 0.5rem;
+}
+
+#cabecera button img{
+    width: 50%;
+    inline-size: 50px;
+}
+
+.h2_aside{
+    padding-left: 80px ;
+    padding-top: 25px;
+    color:#68141C;
+}
+
+.tabla_aside{
+    position: relative;
+    top: -30px;
+    left: 80px;
+    color:white;
+    background-color: #C03543;
+    height: 10%;
+    width: 92%;
+    text-align: center;
+    /* table-layout: fixed; */
+}
+
+#fila{
+    background-color: #FFF7E7;
+    color: black;
+    font-size: 100%;
+    padding-top: 10px;
+}
+/* 
+.descripcion2_area{
+    color: #C03543;
+    width: 50px;
+    border: 1px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    /* white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+} */
+
+.descripcion_area{
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Número de líneas a mostrar */
+    -webkit-box-orient: vertical;  /* Orientación vertical */
+    overflow: hidden; /* Oculta el contenido que no cabe */
+}
+
+
+
+/* Establece un estilo para el artículo principal */
+article {
+    flex: 1;
+    background-color: #FFF7E7;
+    border: 1px solid black;
+    color: black; 
+    overflow-y: auto;
+}
+
+/* Establece un estilo para la barra lateral (aside) */
+aside {
+    background-color: white;
+    color: black;
+    flex: 0 0 14%; /* Establece el tamaño inicial de la barra lateral al 25% del contenedor principal */
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+/* Establece un estilo para el contenedor principal */
+.contenedor {
+    display: flex;
+    flex-direction: row;
+    width: 100%; /* Cambia el ancho al 100% */
+    height: 100vh;
+}
+/* Establece un estilo para el pie de página */
+footer {
+    background-color: black;
+    color: white;
+    height: 30px;
+    padding-left: 1px;
+}
+.tabla_aside img{
+    width: 20px;
+}
+/* Establece un estilo para los botones dentro del artículo */
+.boton-bloque {
+    width: 100%;
+    height: 80px; /* Ajusta la altura según tus necesidades */
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    text-align: center;
+    line-height: 80px; /* Igualar la altura del contenedor para centrar verticalmente */
+    font-size: 30px; /* Ajusta el tamaño de la fuente según tus necesidades */
+    white-space: nowrap; /* Evitar que el texto se divida en varias líneas */
+    overflow: hidden; /* Ocultar cualquier contenido que desborde */
+    text-overflow: ellipsis; /* Mostrar puntos suspensivos (...) cuando el texto es demasiado largo */
+    cursor: pointer;
+}
+.boton-bloque-agregar {
+    background-color: #C03543;
+    color: white;
+    text-align: center;
+    line-height: 80px;
+    font-size: 30px;
+    cursor: pointer;
+    border-radius: 10px;
+    border: 1px solid black; 
+    position: relative;
+    bottom: 50px; 
+    left: 87%; 
+    font-size: 100%;
+    line-height: 50px;
+    transform: translateY(0);
+    width: 10%;
+    height: 6%;
+}
+.boton-bloque-acceder {
+    background-color: #C03543;
+    color: white;
+    text-align: center;
+    line-height: 80px;
+    font-size: 30px;
+    border-radius: 10px;
+    border: 1px solid black; 
+    position: relative;
+    top: 18px; 
+    left: 1070px; 
+    font-size: 100%;
+    line-height: 50px;
+    width: 26%;
+    height: 6%;
+    cursor: pointer; 
+}
+/* Establece un estilo para el efecto hover en los botones */
+.boton-bloque:hover {
+    background-color: #C03543;
+    color: white;
+}
+
+
+
+a{
+    text-decoration: none;
+}
+.modal-dialog {
+    top: 15%; /* Posición vertical en el centro */
+}
+.modal-header {
+    color: #68141C; 
+}
+
+form {
+    display: flex; /* Utiliza un contenedor flexible */
+    flex-direction: row; /* Organiza los elementos en fila */
+    align-items: center; /* Centra verticalmente los elementos en la fila */
+    position: relative;
+    left: 5%;
+}
+#campo1 {
+    
+    width: 220px; /* Ancho personalizado para "Identificador" */
+    position: relative;
+    left: 10%;  
+    border-radius: 5px;
+}
+
+#editarCampo1{
+    width: 220px; /* Ancho personalizado para "Identificador" */
+    position: relative;
+    left: 10%;  
+    border-radius: 5px;
+}
+
+#campo2 {
+    width: 220px; /* Ancho personalizado para "Identificador" */
+    position: relative;
+    left: 10%;  
+    border-radius: 5px; 
+}
+
+#editarCampo2 {
+    width: 220px; /* Ancho personalizado para "Identificador" */
+    position: relative;
+    left: 10%;  
+    border-radius: 5px; 
+}
+
+#campo1text{
+    position: relative;
+    left: 10%;  
+}
+#campo2text{
+    position: relative;
+    left: 10%;  /*45*/
+}
+
+#campo3{
+    width: 125px; /*380 */
+    border-radius: 5px;
+    position: relative;
+    left: 10%;  
+}
+
+#editarCampo3{
+    width: 125px; /*380 */
+    border-radius: 5px;
+    position: relative;
+    left: 10%;  
+}
+
+#campo3text{
+    position: relative;
+    left: 10%;  
+}
+
+#editarCampo4, #editarCampo5{
+    height: 75px;
+    width: 465px;
+    border-radius: 5px;
+    position: relative;
+    /* left: 10%;  */
+}
+
+#campo4{
+    width: 220px;
+    border-radius: 5px;
+    position: relative;
+    left: 10%; 
+}
+
+#campo5,#campo6{
+    width: 123px;
+    border-radius: 5px;
+    position: relative;
+    left: 10%; 
+}
+
+#campo4text{
+    position: relative;
+    left: 10%; 
+}
+#campo5text{
+    position: relative;
+    left: 30%;  
+}
+#campo6text{
+    position: relative;
+    left: 42%; 
+}
+#campo6{
+    position: relative;
+    right: 15%;
+    border-radius: 5px;
+}
+#campo7{
+    width: 380px;
+    height: 80px;
+    border-radius: 5px;
+    position: relative;
+    left: 10%;
+}
+#campo7text{
+    position: relative;
+    left: 20%; 
+}
+#areas{
+    position: relative;
+}

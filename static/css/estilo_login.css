@@ -1,0 +1,114 @@
+/*GENRAL*/
+*{
+    padding: 0px;
+    margin: 0px;
+}
+
+/*FIN GENERAL*/
+
+/*CABECERA*/
+header{
+    height: 10%;
+    width: 100%;
+    display: block;
+    background-color: #15A4DAff;
+    margin-bottom: 3rem;
+    padding-left: 1%;
+}
+
+#cabecera{/*contenedor del header*/
+    position: relative;
+    margin-top: auto;
+    display: flex;
+    padding: 0 auto;
+    color: #fff;
+ }
+
+ #cabecera h3{
+    position: relative;
+    margin-top: auto;
+    margin-bottom: auto;
+    color: #fff;
+ }
+
+#cabecera img{/*imagen dentro del header*/
+    width: 5%;
+    left: 15px;
+}
+
+#cabecera button{/*Boton dentro del header*/
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translate(0,-50%);
+    background-color: #C03543;
+    border-radius: 30px;
+    color: #fff;
+    font-size: 1.2em;
+    padding: 0 0.5rem;
+}
+
+#cabecera button img{
+    width: 50%;
+    inline-size: 50px;
+}
+/*FIN CABECERA*/
+
+/* FORMULARIO*/
+.container_ {
+    width: 300px; /* Ancho de la caja */
+    margin: 0 auto; /* Centrar la caja horizontalmente en la página */
+    padding: 20px; /* Espacio interno alrededor del contenido del formulario */
+    border: 1px solid #ccc; /* Borde de la caja */
+    box-shadow: 0px 0px 5px 0px #ccc; /* Sombra de la caja */
+    background-color: white;
+}
+
+.container_ form {/* Estilos para el formulario dentro de la caja */
+    text-align: center; /* Alinea el contenido del formulario al centro */
+}
+
+
+.container_ form label{/* Estilos para los elementos del formulario */
+    display: block; /* Coloca cada etiqueta en una línea nueva */
+    text-align: left;
+    margin-bottom: -10px;
+    padding-left: 5px;
+}
+
+.container_ .recor{
+    text-align: left;
+    margin-left: 5px;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%; /* Los campos de entrada ocupan todo el ancho de la caja */
+    padding: 5px; /* Espacio interno en los campos de entrada */
+    margin-bottom: 20px; /* Espacio entre los campos de entrada */
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 0.3rem;
+}
+
+#btn_enviar{
+    font-size: 1.2em;
+    margin: 0.9rem 0;
+    padding: 0.5rem 4rem;
+    border-radius: 1rem;
+    background-color: #8EBB54ff;
+    color: #fff;
+    font-weight: bold;
+}
+
+#btn_enviar:hover {
+    background-color: #8EBB54ff; /* Cambia el color de fondo al pasar el cursor sobre el botón */
+}
+
+.container_ img{
+    width: 60%;
+    margin: 10px 0 20px 0;
+}
+
+/*FIN FORMULARIO*/
+

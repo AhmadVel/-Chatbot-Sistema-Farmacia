@@ -1,0 +1,125 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: red;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+#chat-container {
+    width: 100%;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+#cabecera {
+    background: #FF0000;
+    width: 100%;
+    height: 8%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+#cabecera2 {
+    background: #FFDD00;
+    width: 100%;
+    height: 1%;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+h2 {
+    text-align: right;
+    color: #f4f4f4;
+    margin: top 3px;
+    margin-right: 5%;
+}
+#messages {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 20px;
+    background-color: #fafafa;
+    border-bottom: 1px solid #e0e0e0;
+}
+.message {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+.message strong {
+    margin-right: 10px;
+}
+.message.user {
+    justify-content: flex-end;
+}
+.message.user .bubble {
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 70%;
+    line-height: 1.4;
+    border: 2px solid black;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 0px;
+}
+.message.ai .bubble {
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 70%;
+    line-height: 1.4;
+    border: 2px solid black;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 10px;
+}
+#input-container {
+    display: flex;
+    padding: 10px;
+    background-color: #ffffff;
+    border-top: 1px solid #e0e0e0;
+}
+#user-input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+button {
+    padding: 10px 15px;
+    margin-left: 10px;
+    background-color: #FF0000;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+button:hover {
+    background-color: #0056b3;
+}
+.message.user .circle, .message.ai .circle {
+    width: 5vw;
+    height: 5vw;
+    border-radius: 50%;
+    background-color: #FFDD00;
+    margin-top: 5%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.message.user .circle {
+    margin-left: 1%;
+}
+.message.ai .circle {
+    margin-right: 1%;
+}

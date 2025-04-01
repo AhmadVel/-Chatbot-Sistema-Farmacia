@@ -1,0 +1,97 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    color: #333;
+}
+
+/* Encabezado */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+    background-color: #88DBE8;
+    color: white;
+    position: relative;
+    border-bottom: 6px solid #FFDD00;
+}
+
+.header h1 {
+    font-size: 2em;
+    font-weight: bolder;
+}
+
+.back-btn {
+    position: absolute;
+    left: 10px;
+    padding: 5px 10px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+/* Contenedor del producto */
+.product-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    max-width: 1200px;
+    margin: 100px auto;
+    padding: 20px;  /* Borde */
+    background-color: #f3f3f3;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.product-image {
+    margin-right: 50px; /* Espacio entre la imagen y la info */
+}
+
+.product-image img {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+}
+
+/* Información del producto */
+.product-info {
+    flex: 1;
+}
+
+.product-info h2 {
+    text-align: center;
+    font-size: 1.8em;
+    margin-bottom: 10px;
+}
+
+.property, .stock, .price {
+    margin-top: 20px; /* Espacio entre secciones de la info */
+}
+
+.price-title {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #28a745;
+    margin-bottom: 5px;
+}
+
+.price {
+    font-size: 1em;
+    color: #28a745;
+}
+
+.stock {
+    font-size: 1em;
+    color: #555;
+}
+
+.features {
+    margin-left: 40px;
+    list-style-type: disc;
+}

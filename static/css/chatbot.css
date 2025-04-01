@@ -1,0 +1,227 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f4f8;
+}
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+.menu-content {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    width: 250px;
+    height: 100vh;
+    background-color: #fff;
+    box-shadow: 2px 0px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: left 0.3s ease;
+    z-index: 1000;
+}
+.menu-content.show {
+    left: 0;
+}
+.menu-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+.menu-header {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+}
+.menu-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    text-align: left;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.menu-button:hover {
+    background-color: #f0f0f0;
+}
+.menu-button svg {
+    margin-right: 10px;
+    vertical-align: middle;
+}
+.dashboard-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+.dashboard-header button {
+    position: absolute;
+    left: 0;
+}
+.dashboard-title {
+    color: #4a5568;
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    font-size: 2.5rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    margin: 0;
+}
+#chat-container {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 150px);
+}
+#cabecera {
+    background-color: #4a5568;
+    color: #ffffff;
+    padding: 15px;
+    text-align: center;
+}
+#cabecera h2 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+#messages {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 20px;
+}
+.message {
+    display: flex;
+    margin-bottom: 15px;
+    align-items: flex-start;
+}
+.message.user {
+    justify-content: flex-end;
+}
+.bubble {
+    max-width: 70%;
+    padding: 10px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+.user .bubble {
+    background-color: #4a5568;
+    color: #ffffff;
+}
+.ai .bubble {
+    background-color: #e2e8f0;
+    color: #2d3748;
+}
+.circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 10px;
+    font-weight: bold;
+}
+.user .circle {
+    background-color: #4a5568;
+    color: #ffffff;
+}
+.ai .circle {
+    background-color: #4a5568;
+    color: #ffffff;
+}
+#input-container {
+    display: flex;
+    padding: 15px;
+    background-color: #f8fafc;
+    border-top: 1px solid #e2e8f0;
+}
+#user-input {
+    flex-grow: 1;
+    padding: 10px 15px;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    margin-left: 10px;
+}
+#send-btn {
+    background-color: #4a5568;
+    color: #ffffff;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin-left: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.file-upload {
+    display: flex;
+    position: relative;
+}
+
+.file-upload input[type="file"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.file-upload span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.upload-icon {
+    width: 40px;
+    height: 40px;
+}
+
+.upload-status {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #4a5568;
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    font-size: 1rem;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 250px;
+}
+
+.close-btn {
+    background-color: transparent;
+    border: none;
+    color: #ffffff;
+    font-size: 1rem;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    color: #e53e3e; /* Color rojo para hover */
+}
