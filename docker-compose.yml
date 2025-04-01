@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"  # Mapea el puerto 8000 del contenedor al puerto 8000 del host
+    volumes:
+      - mi_volumen:/app/static/images # Mapea la carpeta de imágenes del host a la del contenedor
+
+volumes:
+  mi_volumen:

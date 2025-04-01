@@ -1,0 +1,10 @@
+Flask
+google-generativeai
+google-cloud-bigquery
+mysql-connector-python
+python-dotenv
+pydub
+google-cloud-speech
+Pillow
+PyPDF2
+pytesseract
