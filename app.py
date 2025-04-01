@@ -22,7 +22,7 @@ app.register_blueprint(login_bp)
 client = bigquery.Client.from_service_account_json('driven-edition-436702-q0-aa07faa8bce3.json')
 
 # Configura tu API key aquí
-genai.configure(api_key='AIzaSyBcS5DqVoIIjXvrlPDUixBsdnYwGt07bkk')
+genai.configure(api_key='INSERTE_SU_API_KEY')
 
 # Crea el modelo de AI 
 generation_config = {
