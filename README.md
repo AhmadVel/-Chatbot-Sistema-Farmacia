@@ -1,4 +1,4 @@
-<h1 align="center">Chatbot de ayuda para un Sistema de Botica(SGSI) <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExcGoyMHQzengzN2c0M2F2aWVmcTJvd2l6bXVuYmVmN3pzdDFrdTNubCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/Jne6nr553PyQ2oxrv6/giphy.gif" width="50"></h1>
+<h1 align="center">Chatbot de ayuda para un Sistema de Botica <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExcGoyMHQzengzN2c0M2F2aWVmcTJvd2l6bXVuYmVmN3pzdDFrdTNubCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/Jne6nr553PyQ2oxrv6/giphy.gif" width="50"></h1>
 <picture><img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHRrNjhteTE4d2dvazN2dXZocjk0YzVwMXNhbmJ1ZzRnamZwdGZ3OSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/wKyRjf4ngjYX6rJhVS/giphy.gif" width = 50px></picture> Justificación del proyecto:
 
 
